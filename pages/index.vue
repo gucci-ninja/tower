@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700display=swap" rel="stylesheet">
     <LandingPage/>
     <div class="sidebar">
       <whos-online></whos-online>
@@ -12,6 +13,7 @@
 import LandingPage from '../components/LandingPage'
 import WhosOnline from '../components/WhosOnline.vue'
 import Chat from '../components/Chat.vue'
+
 
 export default {
   name: 'App',
