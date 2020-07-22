@@ -2,23 +2,28 @@
   <div id="app">
     <LandingPage/>
     <div class="sidebar">
-      <whos-online></whos-online>
-      <chat></chat>
+      <h1> {{ users }} </h1>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
 import LandingPage from '../components/LandingPage'
-import WhosOnline from '../components/WhosOnline.vue'
-import Chat from '../components/Chat.vue'
 
 export default {
   name: 'App',
   components: {
     LandingPage,
-    WhosOnline,
-    Chat
+  },
+  computed: {
+    ...mapState(["users"]),
+  },
+  methods: {
+    ...mapActions(["addUser"]),
+  },
+  mounted() {
+    this.addUser();
   }
 }
 </script>
