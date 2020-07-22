@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import LandingPage from './components/LandingPage'
+import LandingPage from '../components/LandingPage'
 import WhosOnline from '../components/WhosOnline.vue'
 import Chat from '../components/Chat.vue'
 
