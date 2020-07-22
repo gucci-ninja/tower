@@ -1,28 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="sidebar">
+      <whos-online></whos-online>
+      <chat></chat>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import WhosOnline from '../components/WhosOnline.vue'
+import Chat from '../components/Chat.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    WhosOnline,
+    Chat
   }
 }
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.sidebar {
+  float: right;
 }
 </style>
