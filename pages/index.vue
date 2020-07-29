@@ -9,6 +9,9 @@
   </div>
 </template>
 
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+
 <script>
 import LandingPage from '../components/LandingPage'
 import WhosOnline from '../components/WhosOnline.vue'

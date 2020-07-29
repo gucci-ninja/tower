@@ -5,14 +5,18 @@
             size="20"
             placeholder="Got a code?"
             >
-        <button
-            id = "enterRoom"
-            round
-            type="plain"> LET'S GO!
-        </button>
+        <nuxt-link to="/towers/enterTower">
+          <button
+              id = "enterRoom"
+              round
+              type="plain"> LET'S GO!
+          </button>
+        </nuxt-link>
         <div id="newTowerDiv">
             <h2 id="newPrompt"> Don't have a Tower yet? </h2>
-            <button target="_blank" id="createRoomButton"> CREATE TOWER</button>
+            <nuxt-link to="/towers/newTower">
+              <button target="_blank" id="createRoomButton">  CREATE TOWER </button>
+            </nuxt-link>
         </div>
 
     </div>
@@ -44,12 +48,12 @@ export default {
     border-radius: 15px;
     outline: 0;
     font-size: 14pt;
-    font-family: Quicksand;
+    font-family: 'Quicksand';
     padding-left: 3%;
     margin-right: 3%;
     width: 70%;
     color:#388087;
-    font-weight: 600;
+    font-weight: 500;
 }
 #enterRoom {
     border: 1px solid silver; 
@@ -60,7 +64,7 @@ export default {
     height: 50px;
     width: 40%;
     font-size: 14pt;
-    font-family: Quicksand;
+    font-family: 'Quicksand';
     transition: 0.25s;
     color: white;
     font-weight:700;
@@ -155,6 +159,9 @@ export default {
   #createRoomButton {
     width: 20%;
     font-size: 16pt;
+  }
+  #createRoomButton:hover {
+    font-size: 18pt;
   }
   #newPrompt{
     margin-top: 0;
