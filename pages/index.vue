@@ -9,7 +9,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import LandingPage from '../components/LandingPage'
+import LandingPage from '../components/LandingPage';
 
 export default {
   name: 'App',
@@ -33,6 +33,7 @@ body, html {
   height: 100%;
   background-color: #F6F6F2;
   font-family: 'Quicksand', sans-serif;
+  text-align: center;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
