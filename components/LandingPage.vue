@@ -19,12 +19,21 @@
 </template>
 
 <script>
+import database from '../firebase';
+
 export default {
     data() {
         return {
             input: ''
         }
-    }
+    },
+    methods: {
+      createTower(name, pw) {
+        database.ref('towers/' + name).set({
+          password: pw
+        });
+      }
+    },
 }
 </script>
 
