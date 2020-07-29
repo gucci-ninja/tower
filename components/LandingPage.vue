@@ -1,18 +1,21 @@
 <template>
-    <div> 
+    <div>
         <h1 id="title">Tower</h1>
         <input id="roomcode"
-            size="20"
             placeholder="Got a code?"
             >
-        <button
-            id = "enterRoom"
-            round
-            type="plain"> LET'S GO!
-        </button>
+        <nuxt-link to="/towers/enterTower">
+          <button
+              id = "enterRoom"
+              round
+              type="plain"> LET'S GO!
+          </button>
+        </nuxt-link>
         <div id="newTowerDiv">
             <h2 id="newPrompt"> Don't have a Tower yet? </h2>
-            <button target="_blank" id="createRoomButton"> CREATE TOWER</button>
+             <nuxt-link to="/towers/newTower">
+              <button target="_blank" id="createTowerButton">  CREATE TOWER </button>
+            </nuxt-link>
         </div>
 
     </div>
@@ -56,7 +59,7 @@ export default {
     font-family: Quicksand;
     padding-left: 3%;
     margin-right: 3%;
-    width: 70%;
+    width: 50%;
     color:#388087;
     font-weight: 600;
 }
@@ -93,10 +96,10 @@ export default {
     font-size: 14pt;
     margin-bottom:5%;
 }
-#createRoomButton {
-   color: white;
-   background-color: #6fb3b8;
-   border: 1px solid silver; 
+#createTowerButton {
+   color: #388087;
+   background-color: #F6F6F2;
+   border: 1px solid #388087; 
    border-radius: 15px;
    height: 50px;
    outline: 0;
@@ -109,12 +112,12 @@ export default {
    transition: 0.25s;
 
 }
-#createRoomButton:hover {
+#createTowerButton:hover {
     font-size: 13pt;
-    background-color: #F6F6F2;
+    background-color: #6fb3b8;
     cursor: pointer;
     letter-spacing: 1px;
-    color: #388087;
+    color: #F6F6F2;
     border: 2px solid #388087; 
 
 }
@@ -140,7 +143,7 @@ export default {
     margin-top: 0;
     margin-bottom: 3%;
   }
-  #createRoomButton {
+  #createTowerButton {
     width: 25%;
     height: 60px;
     margin-top:0%;
