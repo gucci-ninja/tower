@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueSocketIO from 'vue-socket.io';
-import store from '../store';
 import io from 'socket.io-client';
+import store from '../store';
 
 const socketInstance = io('/', {
   transports: ['websocket'],
   rejectUnauthorized: false,
   reconnection: true,
   reconnectionDelay: 1000,
-  reconnectionDelayMax : 5000,
+  reconnectionDelayMax: 5000,
   reconnectionAttempts: 15,
 });
 

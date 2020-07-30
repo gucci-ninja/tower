@@ -13,7 +13,7 @@
                 >
             <button id = "enterRoom"> LET'S GO!
             </button>
-            <h4 id="message">This is what you'll show up as to everyone else in Twisty tower.</h4>
+            <h4 id="message">This is how you'll appear to everyone else in Twisty tower.</h4>
         </div>
     </div>
 </template>

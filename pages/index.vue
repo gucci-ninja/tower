@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     <LandingPage/>
+    <Box/>
     <div class="sidebar">
       <h1> {{ users }} </h1>
     </div>
@@ -9,12 +11,15 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import LandingPage from '../components/LandingPage';
+import LandingPage from '../components/LandingPage.vue';
+import Box from '../components/Box'
+
 
 export default {
   name: 'App',
   components: {
     LandingPage,
+    Box,
   },
   computed: {
     ...mapState(["users"]),

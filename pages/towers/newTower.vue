@@ -1,12 +1,13 @@
 <template>
     <div id="container">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <h1 id="welcome"> A NEW TOWER, OH BOY!
+        <h1 id="welcome"> ${Your_Tower_Name}
         </h1>
     </div>
 </template>
 
 <script>
+
 export default {
 }
 </script>
