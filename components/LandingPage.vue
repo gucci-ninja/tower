@@ -1,8 +1,93 @@
 <template>
+<div>
     <div>
       <h1 id="title">Tower</h1>
       <!-- <form @submit="joinTower"> -->
       <!-- <v-form> -->
+ <div id="steppercontainer">
+          <v-stepper v-model="e1">
+            <v-stepper-header >
+              <v-stepper-step  id="stepper" color="#388087" :complete="e1 > 1" step="1"> Tower Name</v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step id="stepper" :complete="e1 >2 " step="2">Password</v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step  id="stepper" step="3">Who are you? </v-stepper-step>
+          </v-stepper-header>
+          <v-stepper-items>
+            <v-stepper-content step="1">
+              <v-card
+                class="stepper"
+                height="200px"
+              > 
+              <input id="roomcode"
+                v-model="user.towerName"
+                placeholder="Enter tower name"
+              >
+              </v-card>
+
+              <v-btn
+                color="#6fb3b8"
+                @click="e1 = 2"
+              >  
+              Continue
+              </v-btn>
+            </v-stepper-content>
+
+            <v-stepper-content step="2">
+              <v-card
+                class="mb-12"
+                color="grey lighten-1"
+                height="200px"
+              >
+              <input id="roomcode"
+                type="password"
+                placeholder="Enter tower password"
+              >
+              </v-card>
+              <v-btn text  color="#6fb3b8" @click="e1 = 1">Go Back</v-btn>
+              <v-btn
+                color="#6fb3b8"
+                @click="e1 = 3"
+              >
+                Continue
+              </v-btn>
+
+            </v-stepper-content>
+
+              <v-stepper-content step="3">
+                <v-card
+                  class="mb-12"
+                  color="grey lighten-1"
+                  height="200px"
+                >
+                <input id="roomcode"
+                  v-model="user.name"
+                  placeholder="Your name"
+                >
+                </v-card>
+                <v-btn text color="#6fb3b8" @click="e1 = 2">Go back</v-btn>
+                <v-btn
+                  color="#6fb3b8"
+                  @click="joinTower()"
+                > Join Tower </v-btn>
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
+        </div>
+        
+        <nuxt-link to="/towers/enterTower">
+        </nuxt-link>
+        <div id="newTowerDiv">
+             <nuxt-link to="/towers/newTower">
+              <button target="_blank" id="createTowerButton">  CREATE A NEW TOWER </button>
+            </nuxt-link>
+        </div>
+    </div>
+<!-- 
         <div>
           <input
             id="roomcode"
@@ -24,7 +109,7 @@
             round
             type="plain"
             @click="joinTower()"> Join Tower
-        </button>
+        </button> -->
       <!-- </v-form> -->
       <div id="newTowerDiv">
             <button target="_blank"
@@ -42,6 +127,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
+      e1: 1,
       user: {
         name: '',
         towerName: '',
