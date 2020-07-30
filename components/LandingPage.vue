@@ -2,19 +2,19 @@
     <div>
         <h1 id="title">Tower</h1>
         <input id="roomcode"
-            placeholder="Got a code?"
+            placeholder="Enter tower name"
             >
         <nuxt-link to="/towers/enterTower">
           <button
               id = "enterRoom"
               round
-              type="plain"> LET'S GO!
+              type="plain"> Join Tower
           </button>
         </nuxt-link>
         <div id="newTowerDiv">
-            <h2 id="newPrompt"> Don't have a Tower yet? </h2>
+            <!-- <h2 id="newPrompt"> No Tower? </h2> -->
              <nuxt-link to="/towers/newTower">
-              <button target="_blank" id="createTowerButton">  CREATE TOWER </button>
+              <button target="_blank" id="createTowerButton">  CREATE A NEW TOWER </button>
             </nuxt-link>
         </div>
 
