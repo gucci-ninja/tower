@@ -8,4 +8,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/socket.client.js' },
   ],
+  buildModules: [
+    // Simple usage
+    '@nuxtjs/vuetify',
+  ],
 };

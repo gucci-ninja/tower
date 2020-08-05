@@ -1,11 +1,15 @@
 export const state = () => ({
   users: 0,
+  messages: [],
 });
 
 export const mutations = {
   SOCKET_updateUsers(state, users) {
     state.users = users;
   },
+  SOCKET_newMessage(state, newMsg) {
+    state.messages = [...state.messages, newMsg];
+  }
 };
 
 export const actions = {
@@ -18,4 +22,10 @@ export const actions = {
       payload: null,
     });
   },
+  sendMessage({ dispatch }, msg) {
+    dispatch("socketEmit", {
+      action: "sendMessage",
+      payload: msg
+    });
+  }
 };

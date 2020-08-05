@@ -2,8 +2,8 @@ const { Nuxt, Builder } = require('nuxt');
 const app = require("express")();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-
 const config = require('../nuxt.config.js');
+const Message = require("../models/Message")();
 
 var users = 0;
 
@@ -14,6 +14,10 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     io.emit("updateUsers", --users)
+  });
+
+  socket.on("sendMessage", (msg) => {
+    io.emit("newMessage", new Message(msg));
   });
 });
 
