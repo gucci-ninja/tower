@@ -3,19 +3,18 @@
         <h1 id="title">Tower</h1>
         <input id="roomcode"
             placeholder="Enter tower name"
+            v-model="towerName"
             >
-        <nuxt-link to="/towers/enterTower">
           <button
               id = "enterRoom"
               round
-              type="plain"> Join Tower
+              type="plain"
+              @click="joinTower()"> Join Tower
           </button>
-        </nuxt-link>
         <div id="newTowerDiv">
-            <!-- <h2 id="newPrompt"> No Tower? </h2> -->
-             <nuxt-link to="/towers/newTower">
-              <button target="_blank" id="createTowerButton">  CREATE A NEW TOWER </button>
-            </nuxt-link>
+              <button target="_blank"
+              id="createTowerButton"
+              @click="createTower()">  CREATE A NEW TOWER </button>
         </div>
 
     </div>
@@ -25,18 +24,30 @@
 import database from '../firebase';
 
 export default {
-    data() {
-        return {
-            input: ''
+  data() {
+    return {
+      towerName: '',
+      error: ''
+    }
+  },
+  methods: {
+    createTower() {
+      database.ref('towers/' + this.towerName).set({
+        password: 'test'
+      });
+      $nuxt.$router.push("/towers/newTower");
+    },
+    joinTower() {
+      let app = this;
+      database.ref('/towers/' + this.towerName).once('value').then(function(snapshot) { 
+        if (snapshot.val()) {
+          $nuxt.$router.push("/towers/enterTower");
+        } else {
+          app.error = "This room doesn't exist";
         }
-    },
-    methods: {
-      createTower(name, pw) {
-        database.ref('towers/' + name).set({
-          password: pw
-        });
-      }
-    },
+      });
+    }
+  },
 }
 </script>
 
