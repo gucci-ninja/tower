@@ -1,7 +1,7 @@
 <template>
   <div id="chat">
     <div class="header">
-      <span class="title">Chat</span>
+      <span class="title">{{this.$route.params.slug }} Chat</span>
     </div>
     <div class="chat-messages">
       <Message
@@ -44,7 +44,7 @@ export default {
       this.sendMessage(this.content);
       this.content = "";
     }
-  }
+  },
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <p>{{ message.content }}</p>
+  <p>{{ message.user }} : {{ message.content }}</p>
 </template>
 
 <script>

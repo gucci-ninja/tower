@@ -16,5 +16,9 @@ module.exports = {
     */
     extend(config, ctx) {
     }
-  }
+  },
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+  ],
 };

@@ -1,51 +1,78 @@
 <template>
     <div>
-        <h1 id="title">Tower</h1>
-        <input id="roomcode"
-            placeholder="Enter tower name"
-            v-model="towerName"
-            >
-          <button
-              id = "enterRoom"
-              round
-              type="plain"
-              @click="joinTower()"> Join Tower
-          </button>
-        <div id="newTowerDiv">
-              <button target="_blank"
-              id="createTowerButton"
-              @click="createTower()">  CREATE A NEW TOWER </button>
+      <h1 id="title">Tower</h1>
+      <!-- <form @submit="joinTower"> -->
+        <div>
+          <input
+            id="roomcode"
+            placeholder="Enter your name"
+            v-model="user.name"
+          >
         </div>
+        <br>
+        <div>
+          <input
+            id="roomcode"
+            placeholder="Enter tower name"
+            v-model="user.towerName"
+          >
+        </div>
+        <br>
+        <button
+            id = "enterRoom"
+            round
+            type="plain"
+            @click="joinTower()"> Join Tower
+        </button>
+      <!-- </form> -->
+      <div id="newTowerDiv">
+            <button target="_blank"
+            id="createTowerButton"
+            @click="createTower()">  CREATE A NEW TOWER </button>
+      </div>
 
     </div>
 </template>
 
 <script>
-import database from '../firebase';
+import db from '../firebase';
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      towerName: '',
-      error: ''
+      user: {
+        name: '',
+        towerName: '',
+      },
+      error: '',
+
     }
   },
   methods: {
+    ...mapActions(["addUser"]),
     createTower() {
-      database.ref('towers/' + this.towerName).set({
+      if (this.user.towerName === '') { return; }
+      db.ref('towers/' + this.user.towerName).set({
         password: 'test'
       });
       $nuxt.$router.push("/towers/newTower");
     },
-    joinTower() {
-      let app = this;
-      database.ref('/towers/' + this.towerName).once('value').then(function(snapshot) { 
-        if (snapshot.val()) {
-          $nuxt.$router.push("/towers/enterTower");
-        } else {
-          app.error = "This room doesn't exist";
-        }
-      });
+    async joinTower() {
+      try {
+        let app = this;
+        db.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
+          if (snapshot.val()) {
+            app.addUser(app.user);
+            $nuxt.$router.push('/board/');
+          } else {
+            app.error = "This room doesn't exist";
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+     
     }
   },
 }

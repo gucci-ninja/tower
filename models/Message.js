@@ -1,6 +1,7 @@
 class Message {
-  constructor(content) {
+  constructor(content, user) {
     this.content = content;
+    this.user = user
   }
 }
 
