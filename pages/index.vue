@@ -81,7 +81,7 @@ body, html {
   top: 0;
 }
 #steppercontainer {
-  padding: 3% 15% 5% 15%;
+  padding: 3% 15% 1% 15%;
 }
 
 #stepper {
@@ -90,7 +90,6 @@ body, html {
 }
 #title {
     margin-top: 5%;
-    margin-bottom: 5%;
     color: #388087;
     text-align: center;
     justify-content: center;
@@ -135,7 +134,7 @@ body, html {
     border: 2px solid #388087; 
 }
 #newTowerDiv {
-    margin-top: 5%;
+    margin-top: 1%;
 }
 #newPrompt{
     margin-top: 0;
