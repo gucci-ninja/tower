@@ -4,8 +4,7 @@ module.exports = {
     port: process.env.PORT || 8000, // default: 3000
   },
   plugins: [
-    { src: '~/plugins/socket.client.js', '~plugins/vue-js-modal.js'
-   }
+    { src: '~/plugins/socket.client.js'}, 
   ],
   buildModules: [
     // Simple usage
