@@ -2,6 +2,7 @@
     <div>
       <h1 id="title">Tower</h1>
       <!-- <form @submit="joinTower"> -->
+      <!-- <v-form> -->
         <div>
           <input
             id="roomcode"
@@ -24,7 +25,7 @@
             type="plain"
             @click="joinTower()"> Join Tower
         </button>
-      <!-- </form> -->
+      <!-- </v-form> -->
       <div id="newTowerDiv">
             <button target="_blank"
             id="createTowerButton"
@@ -58,21 +59,17 @@ export default {
       });
       $nuxt.$router.push("/towers/newTower");
     },
-    async joinTower() {
-      try {
-        let app = this;
-        db.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
-          if (snapshot.val()) {
-            app.addUser(app.user);
-            $nuxt.$router.push('/board/');
-          } else {
-            app.error = "This room doesn't exist";
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-     
+    joinTower() {
+      let app = this;
+      db.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
+        if (snapshot.val()) {
+          app.$auth.loginWith('local', { data: {
+          user: app.user
+          } });
+        } else {
+          app.error = "This room doesn't exist";
+        }
+      });
     }
   },
 }
