@@ -1,13 +1,14 @@
 <template>
   <div id="chat">
     <div class="header">
-      <span class="title">{{this.$route.params.slug }} Chat</span>
+      <span class="title">Chat</span>
     </div>
     <div class="chat-messages">
       <Message
         v-for="(msg, i) in messages"
         :key="`message-${i}`"
         :message="msg"
+        :me="msg.user === user.name"
       />
     </div>
     <v-form
@@ -25,7 +26,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import Message from "../components/Message";
+import Message from "@/components/Message";
 
 export default {
   name: "Chat",
@@ -36,7 +37,7 @@ export default {
     content: "",
   }),
   computed: {
-    ...mapState(["messages"]),
+    ...mapState(["messages", "user"]),
   },
   methods: {
     ...mapActions(["sendMessage"]),

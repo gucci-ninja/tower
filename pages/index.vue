@@ -1,9 +1,15 @@
 <template>
   <div id="main">
-    <div class="right">
-      <Chat></Chat>
-      <!-- {{ user.sockets }} -->
-      <!-- {{ $auth.user.sockets }} -->
+    <div v-if="$auth.loggedIn">
+      <div class="top-right">
+        <Info></Info>
+      </div>
+      <div class="bottom-right">
+        <Chat></Chat>
+      </div>
+    </div>
+    <div v-else>
+      <LandingPage/>
     </div>
     
   </div>
@@ -13,12 +19,14 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 import Chat from '../components/Chat.vue';
+import Info from '../components/Info.vue';
 import db from '../firebase';
 
 export default {
  name: 'App',
   components: {
     Chat,
+    Info,
   },
   computed: {
     ...mapState(["user"]),
@@ -59,9 +67,15 @@ export default {
 #main {
   display: inline-block;
 }
-.right {
+.bottom-right {
   position: absolute;
   right: 0;
   bottom: 0;
+}
+
+.top-right {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 </style>

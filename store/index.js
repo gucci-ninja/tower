@@ -12,7 +12,6 @@ export const mutations = {
     state.messages = [...state.messages, newMsg];
   },
   setUser(state, user) {
-    // console.log(user)
     state.user = user;
   },
   addSocket(state, id) {
@@ -25,19 +24,15 @@ export const actions = {
     return this._vm.$socket.emit(action, payload);
   },
   async addUser({ commit, dispatch }, user) {
-    // console.log(user);
     const { id } = await dispatch("socketEmit", {
       action: "addUser",
       payload: user,
     });
-    // console.log(id);
     commit("setUser", user)
     commit("addSocket", id)
   },
   sendMessage({ dispatch, state }, msg) {
-    console.log(msg);
     const { user } = state;
-    console.log(user)
     dispatch("socketEmit", {
       action: "sendMessage",
       payload: {
@@ -46,13 +41,4 @@ export const actions = {
       }
     });
   },
-  enterTower({ dispatch, state}) {
-    // console.log(state.user.towerName)
-    // console.log('yeeeettttt');
-    const { user } = state;
-    dispatch("socketEmit", {
-      action: "enterTower",
-      payload: user,
-    });
-  }
 };

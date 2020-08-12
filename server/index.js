@@ -6,33 +6,20 @@ const config = require('../nuxt.config.js');
 const Message = require("../models/Message")();
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
-var users = 0;
 const Users = require("../utils/users")();
 
 io.on("connection", (socket) => {
+  console.log(`Socket ${socket.id} connected.`);
+
   socket.on("addUser", (user) => {
-    console.log(user.name);
     socket.join(user.towerName);
     Users.addSocket(user.name, socket.id);
-    // push user + socket id to table
-    // db.ref(/user.towerName/users/..)
-    // db.ref('towers/' + user.towerName + '/users/' + socket.id).set({
-    //   name: user.name
-    // });
-    io.emit("updateUsers", ++users);
-    console.log(socket.id);
-    // user.sockets.push(socket.id);
-    // console.log(user.sockets);
     return { socketId: socket.id };
   });
 
-  // socket.on("enterTower", ({ name, towerName }) => {
-  //   socket.join(towerName);
-  //   // io.to(towerName).emit("updateUsers", )
-  // })
-
   socket.on("disconnect", () => {
-    io.emit("updateUsers", --users)
+    console.log(`Socket ${socket.id} disconnected.`);
+    Users.removeSocket(socket.id);
   });
 
   socket.on("sendMessage", ({ msg, user }) => {
