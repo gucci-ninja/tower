@@ -27,7 +27,10 @@
               > 
               <h4 id="prompt"> What would you like to call your new Tower? </h4>
 
-              <input id="roomcode" placeholder="New tower name">
+              <input id="roomcode"
+              v-model="user.towerName"
+              placeholder="New tower name">
+              
               </v-card>
 
               <v-btn
@@ -73,7 +76,7 @@
                 <v-btn text color="#6fb3b8" @click="e1 = 2">Go back</v-btn>
                 <v-btn
                   color="#6fb3b8"
-                  @click="e1 = 1"
+                  @click="createTower()"
                 > Join Tower </v-btn>
               </v-stepper-content>
             </v-stepper-items>
@@ -86,14 +89,43 @@
 </template>
 
 <script>
+import db from '../firebase';
+import { mapActions } from "vuex";
+
 export default {
-    name: 'New Tower', 
-    data() {
-        return {
-            input: '',
-            e1: 1,
+  data() {
+    return {
+      e1: 1,
+      user: {
+        name: '',
+        towerName: '',
+      },
+      error: '',
+
+    }
+  },
+  methods: {
+    ...mapActions(["addUser"]),
+    createTower() {
+      if (this.user.towerName === '') { return; }
+      db.ref('towers/' + this.user.towerName).set({
+        password: 'test'
+      });
+      $nuxt.$router.push("/towers/newTower");
+    },
+    joinTower() {
+      let app = this;
+      db.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
+        if (snapshot.val()) {
+          app.$auth.loginWith('local', { data: {
+          user: app.user
+          } });
+        } else {
+          app.error = "This room doesn't exist";
         }
-    }  
+      });
+    }
+  },
 }
 </script>
 
