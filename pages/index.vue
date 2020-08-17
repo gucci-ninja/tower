@@ -57,13 +57,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 
 #main {
   display: inline-block;
+}
 body, html {
   height: 100%;
-  background-color: #F6F6F2;
+  background-color: #F6F6F2 !important;
   font-family: 'Quicksand', sans-serif;
   text-align: center;
   align-content: center;

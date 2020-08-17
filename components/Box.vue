@@ -1,6 +1,5 @@
 <template>
    <div ref="draggableContainer" id="draggable-container" @mousedown="dragMouseDown">
-     
     DRAG HERE
   </div>
 </template>
