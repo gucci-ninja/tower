@@ -1,14 +1,14 @@
 <template>
-    <div id="app">
-      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-        <nuxt-link to="/">
-          <button id="goBack"> < Go back </button>
-        </nuxt-link>
-        <div id="container"> 
-          <h1 id="title">Create a Tower</h1>
-          <div id="steppercontainer">
-            <v-stepper v-model="e1">
-              <v-stepper-header >
+  <div id="app">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <nuxt-link to="/">
+        <button id="goBack"> < Go back </button>
+      </nuxt-link>
+      <div id="container"> 
+        <h1 id="title">Create a Tower</h1>
+        <div id="steppercontainer">
+          <v-stepper v-model="e1">
+            <v-stepper-header >
               <v-stepper-step  id="stepper" color="#388087" :complete="e1 > 1" step="1"> Tower Name</v-stepper-step>
 
               <v-divider></v-divider>
@@ -18,49 +18,48 @@
               <v-divider></v-divider>
 
               <v-stepper-step  id="stepper" step="3">Who are you? </v-stepper-step>
-          </v-stepper-header>
-          <v-stepper-items>
-            <v-stepper-content step="1">
-              <v-card
-                class="stepper"
-                height="200px"
-              > 
-              <h4 id="prompt"> What would you like to call your new Tower? </h4>
+            </v-stepper-header>
+            <v-stepper-items>
+              <v-stepper-content step="1">
+                <v-card
+                  class="stepper"
+                  height="200px"
+                > 
+                <h4 id="prompt"> What would you like to call your new Tower? </h4>
 
-              <input id="roomcode"
-              v-model="user.towerName"
-              placeholder="New tower name">
-              
-              </v-card>
+                <input id="roomcode"
+                v-model="user.towerName"
+                placeholder="New tower name">
+                
+                </v-card>
 
-              <v-btn
-                color="#6fb3b8"
-                @click="e1 = 2"
-              >  
-              Continue
-              </v-btn>
-            </v-stepper-content>
-
-            <v-stepper-content step="2">
-              <v-card
-                class="mb-12"
-                color="grey lighten-1"
-                height="200px"
-              >
-              <input id="roomcode"
-                type="password"
-                placeholder="Enter tower password"
-              >
-              </v-card>
-              <v-btn text  color="#6fb3b8" @click="e1 = 1">Go Back</v-btn>
-              <v-btn
-                color="#6fb3b8"
-                @click="e1 = 3"
-              >
+                <v-btn
+                  color="#6fb3b8"
+                  @click="e1 = 2"
+                >  
                 Continue
-              </v-btn>
+                </v-btn>
+              </v-stepper-content>
 
-            </v-stepper-content>
+              <v-stepper-content step="2">
+                <v-card
+                  class="mb-12"
+                  color="grey lighten-1"
+                  height="200px"
+                >
+                <input id="roomcode"
+                  type="password"
+                  placeholder="Enter tower password"
+                >
+                </v-card>
+                <v-btn text  color="#6fb3b8" @click="e1 = 1">Go Back</v-btn>
+                <v-btn
+                  color="#6fb3b8"
+                  @click="e1 = 3"
+                >
+                  Continue
+                </v-btn>
+              </v-stepper-content>
 
               <v-stepper-content step="3">
                 <v-card
@@ -76,20 +75,18 @@
                 <v-btn text color="#6fb3b8" @click="e1 = 2">Go back</v-btn>
                 <v-btn
                   color="#6fb3b8"
-                  @click="createTower()"
+                  @click="joinTower()"
                 > Join Tower </v-btn>
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
-        </div>
-            
-        
-        </div>
+        </div>  
+      </div>
     </div>
 </template>
 
 <script>
-import db from '../firebase';
+import db from '../../firebase';
 import { mapActions } from "vuex";
 
 export default {
