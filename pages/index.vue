@@ -1,56 +1,76 @@
 <template>
-  <div id="app">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <LandingPage/>
-    <Box/>
-    <div class="sidebar">
-      <h1> {{ users }} </h1>
+  <div id="main">
+    <div v-if="$auth.loggedIn">
+      <div class="bottom-right">
+        <Chat></Chat>
+      </div>
     </div>
+    <div v-else>
+      <LandingPage/>
+    </div>
+    
   </div>
+  
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
-import LandingPage from '../components/LandingPage.vue';
-import Box from '../components/Box'
-
+import { mapState, mapActions, mapMutations } from "vuex";
+import Chat from '../components/Chat.vue';
+import db from '../firebase';
 
 export default {
-  name: 'App',
+ name: 'App',
   components: {
-    LandingPage,
-    Box,
+    Chat,
   },
   computed: {
-    ...mapState(["users"]),
+    ...mapState(["user"]),
   },
   methods: {
-    ...mapActions(["addUser"]),
+    ...mapActions(["enterTower", "addUser"]),
+    ...mapMutations(["setUser"]),
   },
-  mounted() {
-    this.addUser();
+  created() {
+    if (!this.$auth.loggedIn) {
+      this.$router.push('/login');
+    } else { 
+      
+      this.addUser(this.$auth.user);
+      }
+
+    
+    // console.log(this.$auth.user);
+    // this.setUser(this.$auth.user);
+    // this.enterTower();
+    // db.ref('towers/' + this.user.towerName + '/users/' + this.user.id).set({
+    //   name: this.user.name
+    // });
+    // console.log(this.user.name)
+    // if(!this.user.name) {
+    //   this.$nuxt.$router.push('/');
+    // } else { this.enterTower(this.user); }
+  },
+  validate({ params }) {
+    // Must be a tower name
+    return /^[a-zA-Z]+$/.test(params.id)
   }
 }
 </script>
 
-<style>
-body, html {
-  height: 100%;
-  background-color: #F6F6F2;
-  font-family: 'Quicksand', sans-serif;
-  text-align: center;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-@media only screen and (min-width: 768px) {
-  #app {
-    /* margin-top: 60px; */
+<style scoped>
 
-  }
+#main {
+  display: inline-block;
+}
+.bottom-right {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.top-right {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 </style>

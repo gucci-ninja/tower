@@ -1,42 +1,77 @@
 <template>
     <div>
-        <h1 id="title">Tower</h1>
-        <input id="roomcode"
-            placeholder="Enter tower name"
-            >
-        <nuxt-link to="/towers/enterTower">
-          <button
-              id = "enterRoom"
-              round
-              type="plain"> Join Tower
-          </button>
-        </nuxt-link>
-        <div id="newTowerDiv">
-            <!-- <h2 id="newPrompt"> No Tower? </h2> -->
-             <nuxt-link to="/towers/newTower">
-              <button target="_blank" id="createTowerButton">  CREATE A NEW TOWER </button>
-            </nuxt-link>
+      <h1 id="title">Tower</h1>
+      <!-- <form @submit="joinTower"> -->
+      <!-- <v-form> -->
+        <div>
+          <input
+            id="roomcode"
+            placeholder="Enter your name"
+            v-model="user.name"
+          >
         </div>
+        <br>
+        <div>
+          <input
+            id="roomcode"
+            placeholder="Enter tower name"
+            v-model="user.towerName"
+          >
+        </div>
+        <br>
+        <button
+            id = "enterRoom"
+            round
+            type="plain"
+            @click="joinTower()"> Join Tower
+        </button>
+      <!-- </v-form> -->
+      <div id="newTowerDiv">
+            <button target="_blank"
+            id="createTowerButton"
+            @click="createTower()">  CREATE A NEW TOWER </button>
+      </div>
 
     </div>
 </template>
 
 <script>
-import database from '../firebase';
+import db from '../firebase';
+import { mapActions } from "vuex";
 
 export default {
-    data() {
-        return {
-            input: ''
+  data() {
+    return {
+      user: {
+        name: '',
+        towerName: '',
+      },
+      error: '',
+
+    }
+  },
+  methods: {
+    ...mapActions(["addUser"]),
+    createTower() {
+      if (this.user.towerName === '') { return; }
+      db.ref('towers/' + this.user.towerName).set({
+        password: 'test'
+      });
+      $nuxt.$router.push("/towers/newTower");
+    },
+    joinTower() {
+      let app = this;
+      db.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
+        if (snapshot.val()) {
+          app.$auth.loginWith('local', { data: {
+          user: app.user
+          } });
+        } else {
+          app.error = "This room doesn't exist";
         }
-    },
-    methods: {
-      createTower(name, pw) {
-        database.ref('towers/' + name).set({
-          password: pw
-        });
-      }
-    },
+      });
+    }
+  },
 }
 </script>
 
