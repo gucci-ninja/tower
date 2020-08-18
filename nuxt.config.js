@@ -4,9 +4,7 @@ module.exports = {
     port: process.env.PORT || 8000, // default: 3000
   },
   plugins: [
-    { src: '~/plugins/socket.client.js' },
-    { src: '~/plugins/vue_draggable_resizable.js' },
-
+    { src: '~/plugins/socket.client.js'}, 
   ],
   buildModules: [
     // Simple usage
