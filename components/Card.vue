@@ -1,33 +1,51 @@
 <template>
-  <vue-draggable-resizable :x="x" :y="y" :z="z" :w="width" :h="height" @dragging="onDrag" @resizing="onResize" class-name="note" :parent="true">
-    <v-card :height="height">
-      <v-card-title>{{ text }}</v-card-title>
+  <vue-draggable-resizable :x="mX" :y="mY" :w="mWidth" :h="mHeight" @dragging="onDrag" @resizing="onResize" class-name="note" :parent="true">
+    <v-card :height="mHeight">
+      <v-card-title>{{ note.text }}</v-card-title>
     </v-card>
   </vue-draggable-resizable>
 </template>
 
 <script>
+import db from '../firebase';
 
 export default {
   props: {
-    id: Number,
-    x: Number,
-    y: Number,
-    z: Number,
-    width: Number,
-    height: Number,
-    text: String
+    note: {
+      type: Object,
+      default: () => {},
+    },
+    id: Number
+  },
+  data() {
+    return {
+      mX: this.note.x,
+      mY: this.note.y,
+      mWidth: this.note.width,
+      mHeight: this.note.height,
+    }
   },
   methods: {
     onResize: function (x, y, width, height) {
-      this.x = x
-      this.y = y
-      this.width = width
-      this.height = height
+      this.mX = x
+      this.mY = y
+      this.mWidth = width
+      this.mHeight = height
+      this.updateNote();
     },
     onDrag: function (x, y) {
-      this.x = x
-      this.y = y
+      this.mX = x
+      this.mY = y
+      this.updateNote();
+    },
+    updateNote() {
+      db.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).set({
+        x: this.mX,
+        y: this.mY,
+        width: this.mWidth,
+        height: this.mHeight,
+        text: this.note.text,
+      })
     }
   },
 }
@@ -36,5 +54,6 @@ export default {
 <style scoped>
 .note {
   border: none;
+  position: absolute;
 }
 </style>

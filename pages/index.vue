@@ -3,7 +3,11 @@
     <div v-if="$auth.loggedIn">
       <div class="board">
         <Card 
-          v-for="(item, i) in items" :key="(item, i)" :x=100 :y=120 :z='i' :width=150 :height=60 :text='item' />
+          v-for="(note, i) in notes"
+          :key="(note, i)"
+          :note='note'
+          :id='i'
+        />
       </div>
       <div class="bottom-right">
         <Chat></Chat>
@@ -12,9 +16,7 @@
     <div v-else>
       <LandingPage/>
     </div>
-    
   </div>
-  
 </template>
 
 <script>
@@ -31,7 +33,7 @@ export default {
   },
   data() {
     return {
-      items: ["Do laundry", "Bullet journal"]
+      notes: {}
     }
   },
   computed: {
@@ -40,26 +42,21 @@ export default {
   methods: {
     ...mapActions(["enterTower", "addUser"]),
     ...mapMutations(["setUser"]),
+    getBoardState() {
+      let app = this;
+      var notes = db.ref('towers/' + this.$auth.user.towerName + '/notes');
+      notes.on('value', function(snapshot) {
+        app.notes = snapshot.val()
+      });
+    }
   },
   created() {
     if (!this.$auth.loggedIn) {
       this.$router.push('/login');
     } else { 
-      
       this.addUser(this.$auth.user);
+      this.getBoardState();
       }
-
-    
-    // console.log(this.$auth.user);
-    // this.setUser(this.$auth.user);
-    // this.enterTower();
-    // db.ref('towers/' + this.user.towerName + '/users/' + this.user.id).set({
-    //   name: this.user.name
-    // });
-    // console.log(this.user.name)
-    // if(!this.user.name) {
-    //   this.$nuxt.$router.push('/');
-    // } else { this.enterTower(this.user); }
   },
   validate({ params }) {
     // Must be a tower name
@@ -77,9 +74,6 @@ body, html {
   height: 100%;
   background-color: #F6F6F2 !important;
   font-family: 'Quicksand', sans-serif;
-  text-align: center;
-  align-content: center;
-  justify-content: center;
 }
 .bottom-right {
   position: absolute;
