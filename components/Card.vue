@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import db from '../firebase';
+// import db from '../firebase';
 export default {
   props: {
     note: {
@@ -30,7 +30,7 @@ export default {
       this.updateNote();
     },
     updateNote() {
-      db.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).set({
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).set({
         x: this.note.x,
         y: this.note.y,
         width: this.note.width,

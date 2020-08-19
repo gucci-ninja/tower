@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
 
 async function start() {
   const nuxt = new Nuxt(config);
-  const { host, port } = nuxt.options.server;
+  const { port, host } = nuxt.options.server;
   const builder = new Builder(nuxt);
   await builder.build();
 
@@ -57,7 +57,7 @@ async function start() {
 
   app.use(nuxt.render);
 
-  server.listen(port, () => {
+  server.listen(port, host, () => {
     console.log(`Server listening on http://${host}:${port}`)
   });
 }

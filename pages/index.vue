@@ -24,7 +24,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 import Chat from '../components/Chat.vue';
 import Card from '../components/Card.vue';
 import LandingPage from '../components/LandingPage.vue';
-import db from '../firebase';
+// import db from '../firebase';
 export default {
  name: 'App',
   components: {
@@ -48,14 +48,14 @@ export default {
     ...mapMutations(["setUser"]),
     getBoardState() {
       let app = this;
-      var notes = db.ref('towers/' + this.$auth.user.towerName + '/notes');
+      var notes = this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes');
       notes.on('value', function(snapshot) {
         app.notes = snapshot.val()
       });
     },
     updateBoardState() {
       let app = this;
-      var notesRef = db.ref('towers/' + this.$auth.user.towerName + '/notes');
+      var notesRef = this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes');
       notesRef.on('child_changed', snapshot => {
         app.notes[snapshot.key] = snapshot.val();
       });

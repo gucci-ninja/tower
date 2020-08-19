@@ -26,5 +26,4 @@ sw.*
 
 .nuxt
 
-firebase.js
 .env
