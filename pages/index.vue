@@ -23,21 +23,25 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 import Chat from '../components/Chat.vue';
 import Card from '../components/Card.vue';
+import LandingPage from '../components/LandingPage.vue';
 import db from '../firebase';
-
 export default {
  name: 'App',
   components: {
     Chat,
     Card,
+    LandingPage
   },
   data() {
     return {
-      notes: {}
+      notes: {},
     }
   },
   computed: {
     ...mapState(["user"]),
+    cnotes() {
+      return this.notes;
+    }
   },
   methods: {
     ...mapActions(["enterTower", "addUser"]),
@@ -48,15 +52,23 @@ export default {
       notes.on('value', function(snapshot) {
         app.notes = snapshot.val()
       });
-    }
+    },
+    updateBoardState() {
+      let app = this;
+      var notesRef = db.ref('towers/' + this.$auth.user.towerName + '/notes');
+      notesRef.on('child_changed', snapshot => {
+        app.notes[snapshot.key] = snapshot.val();
+      });
+    },
   },
-  created() {
+  async created() {
     if (!this.$auth.loggedIn) {
       this.$router.push('/login');
     } else { 
       this.addUser(this.$auth.user);
       this.getBoardState();
-      }
+      this.updateBoardState();
+    }
   },
   validate({ params }) {
     // Must be a tower name
@@ -66,7 +78,6 @@ export default {
 </script>
 
 <style >
-
 #main {
   display: inline-block;
 }
@@ -80,13 +91,11 @@ body, html {
   right: 0;
   bottom: 0;
 }
-
 .top-right {
   position: absolute;
   right: 0;
   top: 0;
 }
-
 .board {
   height: 500px;
   width: 500px;
