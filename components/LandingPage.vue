@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import db from '../firebase';
+// import db from '../firebase';
 import { mapActions } from "vuex";
 
 export default {
@@ -103,14 +103,14 @@ export default {
     ...mapActions(["addUser"]),
     createTower() {
       if (this.user.towerName === '') { return; }
-      db.ref('towers/' + this.user.towerName).set({
+      this.$fireDb.ref('towers/' + this.user.towerName).set({
         password: 'test'
       });
       $nuxt.$router.push("/towers/newTower");
     },
     joinTower() {
       let app = this;
-      db.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
+      this.$fireDb.ref('/towers/' + this.user.towerName).once('value').then(function(snapshot) { 
         if (snapshot.val()) {
           app.$auth.loginWith('local', { data: {
           user: app.user
