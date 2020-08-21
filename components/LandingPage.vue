@@ -84,7 +84,6 @@
 </template>
 
 <script>
-// import db from '../firebase';
 import { mapActions } from "vuex";
 
 export default {
