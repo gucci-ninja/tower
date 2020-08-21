@@ -25,5 +25,5 @@ pnpm-debug.log*
 sw.*
 
 .nuxt
-
 .env
+ecosystem.config.js
