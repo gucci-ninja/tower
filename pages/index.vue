@@ -13,9 +13,6 @@
         <Chat></Chat>
       </div>
     </div>
-    <div v-else>
-      <LandingPage/>
-    </div>
   </div>
 </template>
 
@@ -61,7 +58,7 @@ export default {
       });
     },
   },
-  async created() {
+  created() {
     if (!this.$auth.loggedIn) {
       this.$router.push('/login');
     } else { 
