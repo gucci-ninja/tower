@@ -1,17 +1,24 @@
 <template>
   <div id="main">
     <div v-if="$auth.loggedIn">
-      <div class="board">
-        <Card 
-          v-for="(note, i) in notes"
-          :key="(note, i)"
-          :note='note'
-          :id='i'
-        />
-      </div>
-      <div class="bottom-right">
-        <Chat></Chat>
-      </div>
+      <v-col cols="9">
+        <div class="board">
+          <Card 
+            v-for="(note, i) in notes"
+            :key="(note, i)"
+            :note='note'
+            :id='i'
+          />
+        </div>
+      </v-col>
+      <v-col cols="3">
+        <div class="info">
+          <Info/>
+        </div>
+        <div class="chat-div">
+          <Chat></Chat>
+        </div>
+      </v-col>
     </div>
   </div>
 </template>
@@ -21,13 +28,15 @@ import { mapState, mapActions, mapMutations } from "vuex";
 import Chat from '../components/Chat.vue';
 import Card from '../components/Card.vue';
 import LandingPage from '../components/LandingPage.vue';
+import Info from '../components/Info.vue';
 // import db from '../firebase';
 export default {
  name: 'App',
   components: {
     Chat,
     Card,
-    LandingPage
+    LandingPage,
+    Info,
   },
   data() {
     return {
@@ -76,10 +85,10 @@ export default {
 
 <style >
 #main {
-  display: inline-block;
+  /* display: inline-block; */
 }
 body, html {
-  height: 100%;
+  /* height: 100%; */
   background-color: #F6F6F2 !important;
   font-family: 'Quicksand', sans-serif;
 }
@@ -94,9 +103,24 @@ body, html {
   top: 0;
 }
 .board {
-  height: 500px;
-  width: 500px;
-  position: relative;
-  background-color: rgb(245, 237, 245);
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: #F2F2F2;
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size: 1.5em 1.5em;
+  background-position: -19px -19px;
+  border-radius: 1em;
+}
+
+.chat-div {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
+
+.info {
+  position: fixed;
+  top: 1em;
+  right: 1em;
 }
 </style>

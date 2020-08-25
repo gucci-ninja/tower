@@ -2,11 +2,14 @@ const { Nuxt, Builder } = require('nuxt');
 const app = require("express")();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const config = require('../nuxt.config.js');
+
 const Message = require("../models/Message")();
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 const Users = require("../utils/users")();
+
+const config = require('../nuxt.config.js');
+config.dev = process.env.NODE_ENV !== 'production';
 
 io.on("connection", (socket) => {
   console.log(`Socket ${socket.id} connected.`);
@@ -14,6 +17,7 @@ io.on("connection", (socket) => {
   socket.on("addUser", (user) => {
     socket.join(user.towerName);
     Users.addSocket(user.name, socket.id);
+    // io.to(user.towerName).emit("updateUsers", Users.getUsersByRoom(room));
     return { socketId: socket.id };
   });
 
@@ -30,9 +34,14 @@ io.on("connection", (socket) => {
 async function start() {
   const nuxt = new Nuxt(config);
   const { port, host } = nuxt.options.server;
-  const builder = new Builder(nuxt);
-  await builder.build();
 
+  if (config.dev) {
+    const builder = new Builder(nuxt);
+    await builder.build();
+  } else {
+    await nuxt.ready();
+  }
+  
   app.use(bodyParser.json());
 
   app.post('/api/auth/login', (req, res) => {

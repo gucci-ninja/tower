@@ -8,8 +8,19 @@ module.exports = {
   plugins: [
     { src: '~/plugins/socket.client.js' },
     { src: '~/plugins/vue_draggable_resizable.js' },
-
   ],
+  head: {
+    link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'
+      }
+    ]
+  },
   buildModules: [
     // Simple usage
     '@nuxtjs/vuetify',
