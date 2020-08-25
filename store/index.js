@@ -1,5 +1,5 @@
 export const state = () => ({
-  users: 0,
+  users: [],
   messages: [],
   user: {},
 });
@@ -24,12 +24,17 @@ export const actions = {
     return this._vm.$socket.emit(action, payload);
   },
   async addUser({ commit, dispatch }, user) {
-    const { id } = await dispatch("socketEmit", {
-      action: "addUser",
-      payload: user,
-    });
-    commit("setUser", user)
-    commit("addSocket", id)
+    try {
+      const { id } = await dispatch("socketEmit", {
+        action: "addUser",
+        payload: user,
+      });
+      commit("setUser", user)
+      commit("addSocket", id)
+    } catch(err) {
+      console.log('Socket not ready to emit');
+    }
+
   },
   sendMessage({ dispatch, state }, msg) {
     const { user } = state;
