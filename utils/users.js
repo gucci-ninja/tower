@@ -25,6 +25,17 @@ class Users {
       this.users[user_index].sockets.splice(socket_index, 1);
     }
   }
+
+  findBySocket(socket) {
+    const user_index = this.users.findIndex((user) => user.sockets.includes(socket));
+    if (this.users[user_index]) {
+      return this.users[user_index];
+    }
+  }
+
+  getUsersByRoom(room) {
+    return this.users.filter((user) => user.towerName === room && user.sockets.length);
+  }
 }
 
 module.exports = () => {

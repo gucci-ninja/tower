@@ -17,13 +17,16 @@ io.on("connection", (socket) => {
   socket.on("addUser", (user) => {
     socket.join(user.towerName);
     Users.addSocket(user.name, socket.id);
-    // io.to(user.towerName).emit("updateUsers", Users.getUsersByRoom(room));
+    io.to(user.towerName).emit("updateUsers", Users.getUsersByRoom(user.towerName));
     return { socketId: socket.id };
   });
 
   socket.on("disconnect", () => {
     console.log(`Socket ${socket.id} disconnected.`);
+    let user = Users.findBySocket(socket.id)
     Users.removeSocket(socket.id);
+    io.to(user.towerName).emit("updateUsers", Users.getUsersByRoom(user.towerName));
+    
   });
 
   socket.on("sendMessage", ({ msg, user }) => {

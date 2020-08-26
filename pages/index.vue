@@ -1,25 +1,28 @@
 <template>
-  <div id="main">
-    <div v-if="$auth.loggedIn">
-      <v-col cols="9">
-        <div class="board">
-          <Card 
-            v-for="(note, i) in notes"
-            :key="(note, i)"
-            :note='note'
-            :id='i'
-          />
-        </div>
-      </v-col>
-      <v-col cols="3">
-        <div class="info">
-          <Info/>
-        </div>
-        <div class="chat-div">
-          <Chat></Chat>
-        </div>
-      </v-col>
-    </div>
+  <div v-if="$auth.loggedIn">
+    <v-container grid-list-md fluid>
+      <v-layout row wrap>
+        <v-flex d-flex md9>
+            <v-card color="#F5F5F5" height="97vh" class="board">
+              <Card 
+                v-for="(note, i) in notes"
+                :key="(note, i)"
+                :note='note'
+                :id='i'/>
+            </v-card>
+        </v-flex>
+        <v-flex d-flex md3>
+          <v-layout row wrap>
+            <v-flex d-flex xs12>
+              <Info/>
+            </v-flex>
+            <v-flex d-flex xs12>
+              <Chat/>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -85,11 +88,14 @@ export default {
 
 <style >
 #main {
+
+    height: 100%;
+
   /* display: inline-block; */
 }
 body, html {
   /* height: 100%; */
-  background-color: #F6F6F2 !important;
+  
   font-family: 'Quicksand', sans-serif;
 }
 .bottom-right {
@@ -103,13 +109,12 @@ body, html {
   top: 0;
 }
 .board {
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
   background: #F2F2F2;
   background-image: radial-gradient(black 1px, transparent 0);
   background-size: 1.5em 1.5em;
   background-position: -19px -19px;
-  border-radius: 1em;
+  /* top: 1em;
+  left: 0.75em; */
 }
 
 .chat-div {

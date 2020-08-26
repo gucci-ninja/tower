@@ -1,36 +1,35 @@
 <template>
-  <div class="chat">
-    <div class="chat__header">
+    <v-card class="chat">
+          <div class="chat__header">
       <span class="title"><i class="fas fa-comment-alt"></i> Chat</span>
     </div>
-    <div class="chat-messages">
-      <div id="msgs">
-        <Message
-          v-for="(msg, i) in messages"
-          :key="`message-${i}`"
-          :message="msg"
-          :me="msg.user === user.name"
-        />
+      <div class="chat-messages">
+        <div id="msgs">
+          <Message
+            v-for="(msg, i) in messages"
+            :key="`message-${i}`"
+            :message="msg"
+            :me="msg.user === user.name"
+          />
+        </div>
+        <v-form
+          ref="form"
+          @submit.prevent="send"
+        >
+          <v-text-field
+            outlined
+            v-model="content"
+            autocomplete="off"
+            @click:append="send"
+            append-icon="fas fa-paper-plane"
+            placeholder="Send a message"
+            class="type-msg"
+            hide-details
+            height="15"
+          />
+        </v-form>
       </div>
-      <v-form
-        ref="form"
-        @submit.prevent="send"
-      >
-        <v-text-field
-          outlined
-          v-model="content"
-          autocomplete="off"
-          @click:append="send"
-          append-icon="fas fa-paper-plane"
-          placeholder="Send a message"
-          class="type-msg"
-          hide-details
-          height="15"
-        />
-        
-      </v-form>
-    </div>
-  </div>
+    </v-card>
 </template>
 
 <script>
@@ -70,29 +69,10 @@ export default {
 $headerClr:#8C8D96;
 
 .chat {
-  box-shadow:
-  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12)
-  ;
-
-
-  border-bottom-left-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
-
-  width: 20em;
-  height: 28em;
+  height: 29em;
   background: #F5F5F5;
 
   &__header {
-    border-top-right-radius: 0.5em;
-    border-top-left-radius: 0.5em;
-    display: flex;
-    justify-content: space-between;
-    user-select: none;
     background: $headerClr;
     padding: 0.75em;
     color: #fff;
@@ -109,30 +89,19 @@ $headerClr:#8C8D96;
 }
 
 .chat-messages {
-  
   background: #F5F5F5;
-  border-bottom-left-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
 }
 
 #msgs {
-  height: 20em;
+  height: 21.5em;
   overflow: auto;
 }
 
 .type-msg {
   background: #fff;
   margin: 0.5em;
-  padding: 0px;
   font-family: 'Comfortaa';
   font-weight: 400;
-}
-
-/* The emerging W3C standard
-   that is currently Firefox-only */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: blue orange;
 }
 
 *::-webkit-scrollbar {width: 7px; height: 0;}
