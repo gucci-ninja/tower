@@ -2,7 +2,7 @@
   <div v-if="$auth.loggedIn">
     <v-container grid-list-md fluid>
       <v-layout row wrap>
-        <v-flex d-flex md9>
+        <v-flex d-flex md9 sm12>
             <v-card color="#F5F5F5" height="97vh" class="board">
               <Card 
                 v-for="(note, i) in notes"
@@ -11,7 +11,7 @@
                 :id='i'/>
             </v-card>
         </v-flex>
-        <v-flex d-flex md3>
+        <v-flex d-flex md3 sm12>
           <v-layout row wrap>
             <v-flex d-flex xs12>
               <Info/>
