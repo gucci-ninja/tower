@@ -1,5 +1,6 @@
 <template>
   <div v-if="$auth.loggedIn">
+    <Toolbar/>
     <v-container grid-list-md fluid>
       <v-layout row wrap>
         <v-flex d-flex md9 sm12>
@@ -32,7 +33,8 @@ import Chat from '../components/Chat.vue';
 import Card from '../components/Card.vue';
 import LandingPage from '../components/LandingPage.vue';
 import Info from '../components/Info.vue';
-// import db from '../firebase';
+import Toolbar from '../components/Toolbar.vue';
+
 export default {
  name: 'App',
   components: {
@@ -40,6 +42,7 @@ export default {
     Card,
     LandingPage,
     Info,
+    Toolbar,
   },
   data() {
     return {
