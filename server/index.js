@@ -25,7 +25,8 @@ io.on("connection", (socket) => {
     console.log(`Socket ${socket.id} disconnected.`);
     let user = Users.findBySocket(socket.id)
     Users.removeSocket(socket.id);
-    io.to(user.towerName).emit("updateUsers", Users.getUsersByRoom(user.towerName));
+    if (user && user.towerName) { io.to(user.towerName).emit("updateUsers", Users.getUsersByRoom(user.towerName)); }
+    
     
   });
 
