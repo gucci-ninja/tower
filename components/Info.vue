@@ -2,7 +2,7 @@
   <div id="info">
     <v-card height="42vh" color="#F6F6F2">
         <v-card-title class="title">
-          board
+          dotboard
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>

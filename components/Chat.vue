@@ -1,7 +1,7 @@
 <template>
     <v-card class="chat">
           <div class="chat__header">
-      <span class="title"><i class="fas fa-comment-alt"></i> Chat</span>
+      <span class="title"><v-icon>mdi-message</v-icon> Chat</span>
     </div>
       <div class="chat-messages">
         <div id="msgs">
