@@ -1,5 +1,17 @@
 <template>
-  <vue-draggable-resizable :x="note.x" :y="note.y" :w="note.width" :h="note.height" @dragging="onDrag" @resizing="onResize" class-name="note" :parent="true">
+  <vue-draggable-resizable
+    :draggable="draggable"
+    :x="note.x"
+    :y="note.y"
+    :w="note.width"
+    :h="note.height"
+    @dragging="onDrag"
+    @resizing="onResize"
+    class-name="note"
+    :parent="true"
+    :min-width="50"
+    :min-height="50"
+  >
     <v-btn 
       class="options"
       v-show="options"
@@ -23,6 +35,8 @@
       <v-icon>mdi-palette</v-icon>
     </v-btn>
     <v-textarea
+      @focus="draggable = false"
+      @blur="draggable = true"
       :background-color="note.color"
       solo
       :height="note.height"
@@ -30,9 +44,15 @@
       :value="note.text"
       @input="onText"
       @mouseover="options = true"
-      @mouseleave="options = false">
+      @mouseleave="options = false"
+      hide-details
+    >
     </v-textarea>
-    <ColorPicker @color-picked="onColorChange" @done="colorPicker = false" :defaultColor="note.color" v-show="colorPicker"/>
+    <ColorPicker
+      @color-picked="onColorChange"
+      :defaultColor="note.color"
+      v-show="colorPicker"
+    />
   </vue-draggable-resizable>
 </template>
 
@@ -47,6 +67,7 @@ export default {
   data: () => ({
     options: false,
     colorPicker: false,
+    draggable: true,
   }),
   props: {
     note: {
@@ -88,8 +109,18 @@ export default {
     },
     deleteCard() {
       this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).remove();
+    },
+    onClickOutside(event) {
+      if (event.target.className.includes('v-icon')) return;
+      this.colorPicker = false;
     }
   },
+  mounted() {
+    document.addEventListener("click", this.onClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.onClickOutside);
+  }
 }
 </script>
 
