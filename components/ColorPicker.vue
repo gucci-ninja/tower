@@ -1,7 +1,5 @@
 <template>
   <v-overlay
-    :absolute="absolute"
-    :value="overlay"
     :opacity="0"
   >
     <v-btn

@@ -34,20 +34,12 @@
     >
       <v-icon>mdi-palette</v-icon>
     </v-btn>
-    <v-textarea
-      @focus="draggable = false"
-      @blur="draggable = true"
-      :background-color="note.color"
-      solo
-      :height="note.height"
-      no-resize
-      :value="note.text"
-      @input="onText"
-      @mouseover="options = true"
-      @mouseleave="options = false"
-      hide-details
-    >
-    </v-textarea>
+      <Note
+        v-if="note.type == 'note'"
+        :note="note"
+        :id="id"
+        @toggle-options="toggleOptions"
+        @toggle-drag="toggleDrag"/>
     <ColorPicker
       @color-picked="onColorChange"
       :defaultColor="note.color"
@@ -58,11 +50,13 @@
 
 <script>
 import ColorPicker from '../components/ColorPicker.vue';
+import Note from './Note.vue'
 
 export default {
   name: 'Card',
   components: {
     ColorPicker,
+    Note
   },
   data: () => ({
     options: false,
@@ -98,7 +92,7 @@ export default {
       this.updateNote();
     },
     updateNote() {
-      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).set({
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).update({
         x: this.note.x,
         y: this.note.y,
         width: this.note.width,
@@ -113,6 +107,12 @@ export default {
     onClickOutside(event) {
       if (event.target.className.includes('v-icon')) return;
       this.colorPicker = false;
+    },
+    toggleOptions() {
+      this.options = !this.options;
+    },
+    toggleDrag() {
+      this.draggable = !this.draggable;
     }
   },
   mounted() {
@@ -120,7 +120,7 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener("click", this.onClickOutside);
-  }
+  },
 }
 </script>
 
