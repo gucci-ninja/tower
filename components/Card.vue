@@ -1,13 +1,13 @@
 <template>
   <vue-draggable-resizable
     :draggable="draggable"
-    :x="note.x"
-    :y="note.y"
-    :w="note.width"
-    :h="note.height"
+    :x="card.x"
+    :y="card.y"
+    :w="card.width"
+    :h="card.height"
     @dragging="onDrag"
     @resizing="onResize"
-    class-name="note"
+    class-name="card"
     :parent="true"
     :min-width="50"
     :min-height="50"
@@ -35,14 +35,20 @@
       <v-icon>mdi-palette</v-icon>
     </v-btn>
       <Note
-        v-if="note.type == 'note'"
-        :note="note"
+        v-if="card.type == 'note'"
+        :note="card"
+        :id="id"
+        @toggle-options="toggleOptions"
+        @toggle-drag="toggleDrag"/>
+      <Poll
+        v-else-if="card.type == 'poll'"
+        :poll="card"
         :id="id"
         @toggle-options="toggleOptions"
         @toggle-drag="toggleDrag"/>
     <ColorPicker
       @color-picked="onColorChange"
-      :defaultColor="note.color"
+      :defaultColor="card.color"
       v-show="colorPicker"
     />
   </vue-draggable-resizable>
@@ -51,12 +57,14 @@
 <script>
 import ColorPicker from '../components/ColorPicker.vue';
 import Note from './Note.vue'
+import Poll from './Poll.vue'
 
 export default {
   name: 'Card',
   components: {
     ColorPicker,
-    Note
+    Note,
+    Poll
   },
   data: () => ({
     options: false,
@@ -64,7 +72,7 @@ export default {
     draggable: true,
   }),
   props: {
-    note: {
+    card: {
       type: Object,
       default: () => {},
     },
@@ -72,33 +80,33 @@ export default {
   },
   methods: {
     onResize: function (x, y, width, height) {
-      this.note.x = x
-      this.note.y = y
-      this.note.width = width
-      this.note.height = height
-      this.updateNote();
+      this.card.x = x
+      this.card.y = y
+      this.card.width = width
+      this.card.height = height
+      this.updateCard();
     },
     onDrag: function (x, y) {
-      this.note.x = x
-      this.note.y = y
-      this.updateNote();
+      this.card.x = x
+      this.card.y = y
+      this.updateCard();
     },
     onText: function (text) {
-      this.note.text = text
-      this.updateNote();
+      this.card.text = text
+      this.updateCard();
     },
     onColorChange: function (color) {
-      this.note.color = color;
+      this.card.color = color;
       this.updateNote();
     },
-    updateNote() {
+    updateCard() {
       this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).update({
-        x: this.note.x,
-        y: this.note.y,
-        width: this.note.width,
-        height: this.note.height,
-        text: this.note.text,
-        color: this.note.color,
+        x: this.card.x,
+        y: this.card.y,
+        width: this.card.width,
+        height: this.card.height,
+        text: this.card.text,
+        color: this.card.color,
       })
     },
     deleteCard() {
@@ -125,7 +133,7 @@ export default {
 </script>
 
 <style scoped>
-.note {
+.card {
   border: none;
   position: absolute;
 }
