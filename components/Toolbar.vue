@@ -34,6 +34,7 @@ export default {
         y: 150,
         width: 160,
         height: 60,
+        type: 'note',
         text: 'Sample text',
         color: '#fff',
       });
