@@ -4,13 +4,7 @@
     <v-container grid-list-md fluid>
       <v-layout row wrap>
         <v-flex d-flex md9 sm12>
-            <v-card color="#F5F5F5" height="97vh" class="board">
-              <Card 
-                v-for="(note, i) in notes"
-                :key="(note, i)"
-                :note='note'
-                :id='i'/>
-            </v-card>
+            <Board :boardState="notes" />
         </v-flex>
         <v-flex d-flex md3 sm12>
           <v-layout row wrap>
@@ -34,15 +28,16 @@ import Card from '../components/Card.vue';
 import LandingPage from '../components/LandingPage.vue';
 import Info from '../components/Info.vue';
 import Toolbar from '../components/Toolbar.vue';
+import Board from '../components/Board.vue'
 
 export default {
  name: 'App',
   components: {
     Chat,
-    Card,
     LandingPage,
     Info,
     Toolbar,
+    Board,
   },
   data() {
     return {
