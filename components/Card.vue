@@ -97,20 +97,19 @@ export default {
     },
     onColorChange: function (color) {
       this.card.color = color;
-      this.updateNote();
+      this.updateCard();
     },
     updateCard() {
-      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).update({
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards/' + this.id).update({
         x: this.card.x,
         y: this.card.y,
         width: this.card.width,
         height: this.card.height,
-        text: this.card.text,
         color: this.card.color,
       })
     },
     deleteCard() {
-      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).remove();
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards/' + this.id).remove();
     },
     onClickOutside(event) {
       if (event.target.className.includes('v-icon')) return;
