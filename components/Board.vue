@@ -3,7 +3,7 @@
     <Card
       v-for="(card, i) in boardState"
       :key="(card, i)"
-      :note='card'
+      :card='card'
       :id='i'
     >
     </Card>
