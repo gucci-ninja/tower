@@ -39,9 +39,6 @@ export default {
   computed: {
     ...mapState(["users"])
   },
-  created() {
-    console.log(this.users);
-  },
   methods: {
     randColor() {
       return this.colors[Math.floor(Math.random()*this.colors.length)];
