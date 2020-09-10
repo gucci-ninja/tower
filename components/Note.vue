@@ -30,7 +30,7 @@ export default {
       this.updateNote();
     },
     updateNote() {
-      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).update({
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards/' + this.id).update({
         text: this.note.text
       })
     },

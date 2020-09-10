@@ -35,7 +35,14 @@
       <v-icon>mdi-palette</v-icon>
     </v-btn>
     <Note
+      v-if="card.type == 'note'"
       :note="card"
+      :id="id"
+      @toggle-options="toggleOptions"
+      @toggle-drag="toggleDrag"/>
+    <Poll
+      v-else-if="card.type == 'poll'"
+      :poll="card"
       :id="id"
       @toggle-options="toggleOptions"
       @toggle-drag="toggleDrag"/>
@@ -50,12 +57,14 @@
 <script>
 import ColorPicker from '../components/ColorPicker.vue';
 import Note from './Note.vue';
+import Poll from './Poll.vue';
 
 export default {
   name: 'Card',
   components: {
     ColorPicker,
     Note,
+    Poll,
   },
   data: () => ({
     options: false,
@@ -91,7 +100,7 @@ export default {
       this.updateCard();
     },
     updateCard() {
-      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).update({
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards/' + this.id).update({
         x: this.card.x,
         y: this.card.y,
         width: this.card.width,
@@ -100,7 +109,7 @@ export default {
       })
     },
     deleteCard() {
-      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes/' + this.id).remove();
+      this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards/' + this.id).remove();
     },
     onClickOutside(event) {
       if (event.target.className.includes('v-icon')) return;
