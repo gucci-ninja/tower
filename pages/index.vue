@@ -55,14 +55,14 @@ export default {
     ...mapMutations(["setUser"]),
     getBoardState() {
       let app = this;
-      var notes = this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes');
+      var notes = this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards');
       notes.on('value', function(snapshot) {
         app.notes = snapshot.val()
       });
     },
     updateBoardState() {
       let app = this;
-      var notesRef = this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/notes');
+      var notesRef = this.$fireDb.ref('towers/' + this.$auth.user.towerName + '/cards');
       notesRef.on('child_changed', snapshot => {
         app.notes[snapshot.key] = snapshot.val();
       });
