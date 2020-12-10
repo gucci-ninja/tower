@@ -40,23 +40,7 @@
 </template>
 
 <script>
-/*
-Architecture for poll:
-type: 'poll'
-x: Number
-y: Number
-width: Number
-height: Number
-title: String
-color: String
-options: { id: { text: String, votes: Number } }
-when you add a poll, create a title
-store how many votes per option
-onVote -> ref(options.id) += 1
-user.polls.add(poll.id)
-completedPolls
-finish = disableVote
-*/
+
 export default {
   name: 'Poll',
   data: () => ({
