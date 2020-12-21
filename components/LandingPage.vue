@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 id="title">Tower</h1>
+      <h1 id="title">DotBoard</h1>
       <!-- <form @submit="joinTower"> -->
       <!-- <v-form> -->
       <div id="steppercontainer">
@@ -123,7 +123,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+$textClr:#8C8D96;
+
 body, html {
   height: 100%;
   background-color: #F6F6F2;
@@ -135,15 +138,15 @@ body, html {
 #title {
     margin-top: 5%;
     margin-bottom: 5%;
-    color: #388087;
+    color: $textClr;
     text-align: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 4.5em;
+    font-size: 4em;
 } 
 #roomcode {
     height: 50px;
-    border: 1px solid #388087; 
+    border: 1px solid $textClr;
     border-radius: 15px;
     outline: 0;
     font-size: 14pt;
@@ -151,7 +154,7 @@ body, html {
     padding-left: 3%;
     margin-right: 3%;
     width: 50%;
-    color:#388087;
+    color:$textClr;
     font-weight: 600;
 }
 #enterRoom {
@@ -173,9 +176,9 @@ body, html {
     font-size: 16pt;
     background-color: #F6F6F2;
     cursor: pointer;
-    color: #388087;
+    color: $textClr;
     letter-spacing: 1px;
-    border: 2px solid #388087; 
+    border: 2px solid $textClr;
 }
 #steppercontainer {
   padding: 3% 15% 1% 15%;
@@ -196,7 +199,7 @@ body, html {
     margin-bottom:5%;
 }
 #createTowerButton {
-   color: #388087;
+   color:$textClr;
    background-color: #F6F6F2;
    border: 1px solid #388087; 
    border-radius: 15px;
